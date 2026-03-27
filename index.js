@@ -22,7 +22,7 @@ async function main() {
   
   const hasFFmpeg = checkFFmpeg();
   
-  const dirs = ['assets/music', 'assets/fonts', 'assets/templates', 'temp', 'output', 'logs'];
+  const dirs = ['assets/music', 'assets/fonts', 'assets/templates', 'temp', 'output', 'logs', 'public'];
   for (const dir of dirs) {
     await fs.ensureDir(path.join(__dirname, dir));
   }
@@ -36,16 +36,29 @@ async function main() {
   const app = express();
   const port = process.env.PORT || 3000;
   
-  app.get('/health', (req, res) => {
-    res.json({ status: 'ok', uptime: process.uptime(), ffmpeg: hasFFmpeg, timestamp: new Date().toISOString() });
+  // Serve static files
+  app.use(express.static('public'));
+  
+  // Root route
+  app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
   });
   
-  app.get('/', (req, res) => {
-    res.json({ service: 'AutoNews Bot', version: '1.0.0', status: scheduler.isRunning ? 'processing' : 'idle' });
+  // Health endpoint
+  app.get('/health', (req, res) => {
+    res.json({
+      status: 'ok',
+      uptime: process.uptime(),
+      ffmpeg: hasFFmpeg,
+      timestamp: new Date().toISOString(),
+      version: '1.0.0'
+    });
   });
   
   app.listen(port, () => {
-    logger.info(`🌐 Health endpoint: http://localhost:${port}/health`);
+    logger.info(`🌐 Server running on http://localhost:${port}`);
+    logger.info(`📊 Dashboard: http://localhost:${port}`);
+    logger.info(`🏥 Health: http://localhost:${port}/health`);
   });
   
   scheduler.start();
