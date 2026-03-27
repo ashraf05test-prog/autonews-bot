@@ -17,7 +17,6 @@
     "cheerio": "^1.0.0-rc.12",
     "@google/generative-ai": "^0.21.0",
     "twitter-api-v2": "^1.16.0",
-    "gramjs": "^2.11.0",
     "serpapi": "^2.1.0",
     "fluent-ffmpeg": "^2.1.2",
     "googleapis": "^131.0.0",
