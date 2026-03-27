@@ -1,16 +1,12 @@
 {
   "name": "autonews-bot",
   "version": "1.0.0",
-  "description": "Automated News Video Generator - CNN/BBC Style",
+  "description": "Automated News Video Generator",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node --watch index.js",
     "test": "node test.js"
   },
-  "keywords": ["news", "video", "automation", "ai"],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "rss-parser": "^3.13.0",
     "axios": "^1.6.0",
